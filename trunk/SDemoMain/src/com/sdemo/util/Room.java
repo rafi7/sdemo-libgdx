@@ -11,17 +11,18 @@ import com.badlogic.gdx.math.Vector3;
 public class Room {
 	int xcount, ycount, zcount;
 	private Mesh fcPath, fbPath, lrPath;
-	private Vector3 color = new Vector3(1, 1, 1);
+	private Vector3 color;
 
 	public Room(Vector3 roomSize) {
 		oneTile();
 		xcount = (int) roomSize.x;
 		ycount = (int) roomSize.y;
 		zcount = (int) roomSize.z;
+		color = new Vector3(1f, 1f, 1f);
 	}
 
 	public void oneTile() {
-		int x = 1, y = 1, z = 1;
+		int x = 10, y = 10, z = 10;
 		fcPath = new Mesh(true, 4, 5, new VertexAttribute(Usage.Position, 3,
 				"a_position"));
 		fcPath.setVertices(new float[] { 0, 0, 0, x, 0, 0, x, 0, z, 0, 0, z });
@@ -40,8 +41,8 @@ public class Room {
 
 	public void render(GL10 gl, int renderType) {
 		gl.glPushMatrix();
-		for (float x = 0; x < xcount; x += 1) {
-			for (float z = 0; z < zcount; z += 1) {
+		for (float x = 0; x < xcount; x += 10) {
+			for (float z = 0; z < zcount; z += 10) {
 				gl.glPushMatrix();
 				gl.glTranslatef(x, 0, z);
 				fcPath.render(renderType);
@@ -51,19 +52,19 @@ public class Room {
 			}
 		}
 
-		for (float x = 0; x < xcount; x += 1) {
-			for (float y = 0; y < ycount; y += 1) {
+		for (float x = 0; x < xcount; x += 10) {
+			for (float y = 0; y < ycount; y += 10) {
 				gl.glPushMatrix();
 				gl.glTranslatef(x, y, 0);
 				fbPath.render(renderType);
-				//gl.glTranslatef(0, 0, zcount);
-				//fbPath.render(renderType);
+				// gl.glTranslatef(0, 0, zcount);
+				// fbPath.render(renderType);
 				gl.glPopMatrix();
 			}
 		}
-		
-		for (float z = 0; z < zcount; z += 1) {
-			for (float y = 0; y < ycount; y += 1) {
+
+		for (float z = 0; z < zcount; z += 10) {
+			for (float y = 0; y < ycount; y += 10) {
 				gl.glPushMatrix();
 				gl.glTranslatef(0, y, z);
 				lrPath.render(renderType);
